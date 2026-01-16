@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -20,7 +20,6 @@
             overflow-x: hidden;
         }
 
-        /* 动态背景 */
         .bg-animation {
             position: fixed;
             top: 0;
@@ -47,7 +46,6 @@
             z-index: 1;
         }
 
-        /* 浮动粒子 */
         .particles {
             position: fixed;
             top: 0;
@@ -82,10 +80,9 @@
             padding: 60px 20px;
         }
 
-        /* 头部区域 */
         .header {
             text-align: center;
-            margin-bottom: 60px;
+            margin-bottom: 50px;
         }
 
         .avatar-container {
@@ -159,7 +156,6 @@
             font-weight: 600;
         }
 
-        /* 状态指示器 */
         .status {
             display: inline-flex;
             align-items: center;
@@ -186,7 +182,86 @@
             50% { opacity: 0.8; box-shadow: 0 0 0 10px rgba(16, 185, 129, 0); }
         }
 
-        /* 卡片网格 */
+        /* Manifesto Section */
+        .manifesto {
+            background: linear-gradient(135deg, rgba(124, 58, 237, 0.1), rgba(6, 182, 212, 0.1));
+            border: 1px solid rgba(124, 58, 237, 0.3);
+            border-radius: 24px;
+            padding: 40px;
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .manifesto::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #7c3aed, #06b6d4, #f472b6);
+        }
+
+        .manifesto-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+            display: block;
+            text-align: center;
+        }
+
+        .manifesto-text {
+            font-size: 17px;
+            line-height: 2;
+            color: rgba(255,255,255,0.85);
+        }
+
+        .manifesto-text p {
+            margin-bottom: 16px;
+        }
+
+        .manifesto-text p:last-child {
+            margin-bottom: 0;
+        }
+
+        .strikethrough {
+            color: rgba(255,255,255,0.4);
+            text-decoration: line-through;
+            text-decoration-color: rgba(239, 68, 68, 0.6);
+        }
+
+        .highlight {
+            color: #06b6d4;
+            font-weight: 600;
+        }
+
+        .highlight-gold {
+            color: #fbbf24;
+            font-weight: 700;
+        }
+
+        .emphasis {
+            font-style: italic;
+            color: rgba(255,255,255,0.6);
+        }
+
+        .final-statement {
+            font-size: 20px;
+            font-weight: 700;
+            color: #fff;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            text-align: center;
+        }
+
+        .final-statement .keyword {
+            background: linear-gradient(135deg, #7c3aed, #06b6d4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
         .cards-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -197,6 +272,12 @@
         @media (max-width: 600px) {
             .cards-grid {
                 grid-template-columns: 1fr;
+            }
+            .manifesto {
+                padding: 30px 20px;
+            }
+            .manifesto-text {
+                font-size: 15px;
             }
         }
 
@@ -251,12 +332,10 @@
             line-height: 1.7;
         }
 
-        /* 全宽卡片 */
         .card.full-width {
             grid-column: 1 / -1;
         }
 
-        /* 技能条 */
         .skills-container {
             display: flex;
             flex-wrap: wrap;
@@ -286,7 +365,6 @@
             font-size: 16px;
         }
 
-        /* 兴趣标签 */
         .interests-container {
             display: flex;
             flex-wrap: wrap;
@@ -313,7 +391,6 @@
             background: linear-gradient(135deg, rgba(6, 182, 212, 0.2), rgba(244, 114, 182, 0.2));
         }
 
-        /* 统计数据 */
         .stats {
             display: flex;
             justify-content: center;
@@ -346,7 +423,6 @@
             margin-top: 5px;
         }
 
-        /* 链接按钮 */
         .action-buttons {
             display: flex;
             justify-content: center;
@@ -389,7 +465,6 @@
             border-color: rgba(255,255,255,0.4);
         }
 
-        /* 底部引用 */
         .quote {
             text-align: center;
             margin-top: 60px;
@@ -457,12 +532,30 @@
             </div>
         </header>
 
+        <!-- Manifesto Section -->
+        <div class="manifesto">
+            <span class="manifesto-icon">🌾</span>
+            <div class="manifesto-text">
+                <p>
+                    I don't want to be the <span class="strikethrough">Seed Biotechnology Center at UC Davis</span>—the top university in agricultural science. <span class="emphasis">Let Berkeley have that.</span>
+                </p>
+                <p>
+                    I don't want to be a <span class="strikethrough">Michelin three-star restaurant</span> either. <span class="emphasis">Stunning plating, inconsistent flavor.</span>
+                </p>
+                <p class="final-statement">
+                    I want to be the <span class="highlight-gold">Cargill</span> of <span class="keyword">AI-EDA</span>.<br>
+                    <span class="highlight">Plant. Harvest. Ship.</span><br>
+                    At scale. Reliably. Every single day.
+                </p>
+            </div>
+        </div>
+
         <div class="cards-grid">
             <div class="card">
                 <div class="card-icon">🎯</div>
                 <h3 class="card-title">Mission</h3>
                 <p class="card-content">
-                    致力于探索 AI 与 EDA 的深度融合，打造硬件自进化的智能系统，让芯片设计迈入新纪元。
+                    Dedicated to exploring the deep integration of AI and EDA, building self-evolving intelligent hardware systems, ushering chip design into a new era.
                 </p>
             </div>
 
@@ -470,7 +563,7 @@
                 <div class="card-icon">💡</div>
                 <h3 class="card-title">Philosophy</h3>
                 <p class="card-content">
-                    代码改变世界，硬件定义未来。用技术的力量，解决复杂问题，创造无限可能。
+                    Code changes the world, hardware defines the future. Harnessing the power of technology to solve complex problems and create infinite possibilities.
                 </p>
             </div>
 
@@ -493,14 +586,14 @@
                 <div class="card-icon">✨</div>
                 <h3 class="card-title">Interests & Hobbies</h3>
                 <div class="interests-container">
-                    <span class="interest" title="编程">💻</span>
-                    <span class="interest" title="阅读">📚</span>
-                    <span class="interest" title="音乐">🎵</span>
-                    <span class="interest" title="摄影">📷</span>
-                    <span class="interest" title="游戏">🎮</span>
-                    <span class="interest" title="旅行">✈️</span>
-                    <span class="interest" title="咖啡">☕</span>
-                    <span class="interest" title="探索">🔭</span>
+                    <span class="interest" title="Coding">💻</span>
+                    <span class="interest" title="Reading">📚</span>
+                    <span class="interest" title="Music">🎵</span>
+                    <span class="interest" title="Photography">📷</span>
+                    <span class="interest" title="Gaming">🎮</span>
+                    <span class="interest" title="Travel">✈️</span>
+                    <span class="interest" title="Coffee">☕</span>
+                    <span class="interest" title="Exploring">🔭</span>
                 </div>
             </div>
         </div>
