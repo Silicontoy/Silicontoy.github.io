@@ -14,9 +14,9 @@
         
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: #0a0a0f;
+            background: #faf9f7;
             min-height: 100vh;
-            color: #fff;
+            color: #1a1a2e;
             overflow-x: hidden;
         }
 
@@ -28,9 +28,9 @@
             height: 100%;
             z-index: 0;
             background: 
-                radial-gradient(ellipse at 20% 20%, rgba(120, 0, 255, 0.15) 0%, transparent 50%),
-                radial-gradient(ellipse at 80% 80%, rgba(0, 200, 255, 0.15) 0%, transparent 50%),
-                radial-gradient(ellipse at 50% 50%, rgba(255, 0, 128, 0.08) 0%, transparent 60%);
+                radial-gradient(ellipse at 20% 20%, rgba(255, 216, 102, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 80%, rgba(255, 159, 64, 0.12) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 50%, rgba(255, 107, 107, 0.08) 0%, transparent 60%);
         }
 
         .grid-overlay {
@@ -40,8 +40,8 @@
             width: 100%;
             height: 100%;
             background-image: 
-                linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+                linear-gradient(rgba(0,0,0,0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0,0,0,0.02) 1px, transparent 1px);
             background-size: 50px 50px;
             z-index: 1;
         }
@@ -60,7 +60,7 @@
             position: absolute;
             width: 4px;
             height: 4px;
-            background: rgba(255, 255, 255, 0.5);
+            background: rgba(255, 166, 0, 0.5);
             border-radius: 50%;
             animation: float 20s infinite;
         }
@@ -99,7 +99,7 @@
             right: -10px;
             bottom: -10px;
             border-radius: 50%;
-            background: conic-gradient(from 0deg, #7c3aed, #06b6d4, #f472b6, #7c3aed);
+            background: conic-gradient(from 0deg, #ff9d00, #ffb347, #ff6b6b, #ff9d00);
             animation: rotate 4s linear infinite;
         }
 
@@ -113,19 +113,19 @@
             width: 150px;
             height: 150px;
             border-radius: 50%;
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            background: linear-gradient(135deg, #fff8f0 0%, #fff3e6 100%);
             display: flex;
             justify-content: center;
             align-items: center;
             font-size: 60px;
-            border: 4px solid #0a0a0f;
+            border: 4px solid #faf9f7;
             z-index: 1;
         }
 
         .name {
             font-size: 42px;
             font-weight: 800;
-            background: linear-gradient(135deg, #fff 0%, #a78bfa 50%, #06b6d4 100%);
+            background: linear-gradient(135deg, #1a1a2e 0%, #ff9d00 50%, #ff6b6b 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -136,7 +136,7 @@
         .title {
             font-family: 'JetBrains Mono', monospace;
             font-size: 14px;
-            color: #06b6d4;
+            color: #ff9d00;
             letter-spacing: 3px;
             text-transform: uppercase;
             margin-bottom: 20px;
@@ -144,7 +144,7 @@
 
         .tagline {
             font-size: 18px;
-            color: rgba(255,255,255,0.6);
+            color: rgba(26,26,46,0.6);
             font-weight: 300;
             max-width: 500px;
             margin: 0 auto;
@@ -152,7 +152,7 @@
         }
 
         .tagline span {
-            color: #f472b6;
+            color: #ff6b6b;
             font-weight: 600;
         }
 
@@ -184,8 +184,8 @@
 
         /* Manifesto Section */
         .manifesto {
-            background: linear-gradient(135deg, rgba(124, 58, 237, 0.1), rgba(6, 182, 212, 0.1));
-            border: 1px solid rgba(124, 58, 237, 0.3);
+            background: linear-gradient(135deg, rgba(255, 157, 0, 0.1), rgba(255, 107, 107, 0.1));
+            border: 1px solid rgba(255, 157, 0, 0.3);
             border-radius: 24px;
             padding: 40px;
             margin-bottom: 40px;
@@ -200,7 +200,7 @@
             left: 0;
             right: 0;
             height: 3px;
-            background: linear-gradient(90deg, #7c3aed, #06b6d4, #f472b6);
+            background: linear-gradient(90deg, #ff9d00, #ffb347, #ff6b6b);
         }
 
         .manifesto-icon {
@@ -213,7 +213,7 @@
         .manifesto-text {
             font-size: 17px;
             line-height: 2;
-            color: rgba(255,255,255,0.85);
+            color: rgba(26,26,46,0.85);
         }
 
         .manifesto-text p {
@@ -225,38 +225,38 @@
         }
 
         .strikethrough {
-            color: rgba(255,255,255,0.4);
-            text-decoration: line;
+            color: rgba(26,26,46,0.4);
+            text-decoration: line-through;
             text-decoration-color: rgba(239, 68, 68, 0.6);
         }
 
         .highlight {
-            color: #06b6d4;
+            color: #ff9d00;
             font-weight: 600;
         }
 
         .highlight-gold {
-            color: #fbbf24;
+            color: #ff6b6b;
             font-weight: 700;
         }
 
         .emphasis {
             font-style: italic;
-            color: rgba(255,255,255,0.6);
+            color: rgba(26,26,46,0.6);
         }
 
         .final-statement {
             font-size: 20px;
             font-weight: 700;
-            color: #fff;
+            color: #1a1a2e;
             margin-top: 20px;
             padding-top: 20px;
-            border-top: 1px solid rgba(255,255,255,0.1);
+            border-top: 1px solid rgba(0,0,0,0.1);
             text-align: center;
         }
 
         .final-statement .keyword {
-            background: linear-gradient(135deg, #7c3aed, #06b6d4);
+            background: linear-gradient(135deg, #ff9d00, #ff6b6b);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -282,14 +282,15 @@
         }
 
         .card {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(255, 255, 255, 0.7);
+            border: 1px solid rgba(0, 0, 0, 0.08);
             border-radius: 20px;
             padding: 30px;
             backdrop-filter: blur(10px);
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
         }
 
         .card::before {
@@ -299,15 +300,16 @@
             left: 0;
             right: 0;
             height: 2px;
-            background: linear-gradient(90deg, transparent, #7c3aed, #06b6d4, transparent);
+            background: linear-gradient(90deg, transparent, #ff9d00, #ff6b6b, transparent);
             opacity: 0;
             transition: opacity 0.4s;
         }
 
         .card:hover {
             transform: translateY(-5px);
-            border-color: rgba(124, 58, 237, 0.3);
-            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(255, 157, 0, 0.3);
+            background: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 12px 24px rgba(255, 157, 0, 0.15);
         }
 
         .card:hover::before {
@@ -323,12 +325,12 @@
             font-size: 18px;
             font-weight: 600;
             margin-bottom: 12px;
-            color: #fff;
+            color: #1a1a2e;
         }
 
         .card-content {
             font-size: 14px;
-            color: rgba(255,255,255,0.5);
+            color: rgba(26,26,46,0.6);
             line-height: 1.7;
         }
 
@@ -348,16 +350,16 @@
             align-items: center;
             gap: 8px;
             padding: 10px 16px;
-            background: rgba(124, 58, 237, 0.1);
-            border: 1px solid rgba(124, 58, 237, 0.2);
+            background: rgba(255, 157, 0, 0.1);
+            border: 1px solid rgba(255, 157, 0, 0.2);
             border-radius: 10px;
             font-size: 13px;
-            color: #a78bfa;
+            color: #cc7d00;
             transition: all 0.3s;
         }
 
         .skill:hover {
-            background: rgba(124, 58, 237, 0.2);
+            background: rgba(255, 157, 0, 0.2);
             transform: scale(1.05);
         }
 
@@ -378,8 +380,8 @@
             justify-content: center;
             width: 50px;
             height: 50px;
-            background: linear-gradient(135deg, rgba(6, 182, 212, 0.1), rgba(244, 114, 182, 0.1));
-            border: 1px solid rgba(255,255,255,0.1);
+            background: linear-gradient(135deg, rgba(255, 157, 0, 0.1), rgba(255, 107, 107, 0.1));
+            border: 1px solid rgba(0,0,0,0.08);
             border-radius: 15px;
             font-size: 24px;
             transition: all 0.3s;
@@ -388,7 +390,7 @@
 
         .interest:hover {
             transform: translateY(-5px) scale(1.1);
-            background: linear-gradient(135deg, rgba(6, 182, 212, 0.2), rgba(244, 114, 182, 0.2));
+            background: linear-gradient(135deg, rgba(255, 157, 0, 0.2), rgba(255, 107, 107, 0.2));
         }
 
         .stats {
@@ -397,9 +399,10 @@
             gap: 40px;
             margin: 40px 0;
             padding: 30px;
-            background: rgba(255,255,255,0.02);
+            background: rgba(255,255,255,0.6);
             border-radius: 20px;
-            border: 1px solid rgba(255,255,255,0.05);
+            border: 1px solid rgba(0,0,0,0.05);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
         }
 
         .stat {
@@ -409,7 +412,7 @@
         .stat-value {
             font-size: 36px;
             font-weight: 800;
-            background: linear-gradient(135deg, #7c3aed, #06b6d4);
+            background: linear-gradient(135deg, #ff9d00, #ff6b6b);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -417,7 +420,7 @@
 
         .stat-label {
             font-size: 12px;
-            color: rgba(255,255,255,0.4);
+            color: rgba(26,26,46,0.5);
             text-transform: uppercase;
             letter-spacing: 2px;
             margin-top: 5px;
@@ -444,45 +447,45 @@
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, #7c3aed, #06b6d4);
+            background: linear-gradient(135deg, #ff9d00, #ff6b6b);
             color: #fff;
             border: none;
         }
 
         .btn-primary:hover {
             transform: translateY(-3px);
-            box-shadow: 0 20px 40px rgba(124, 58, 237, 0.3);
+            box-shadow: 0 20px 40px rgba(255, 157, 0, 0.3);
         }
 
         .btn-secondary {
             background: transparent;
-            color: #fff;
-            border: 1px solid rgba(255,255,255,0.2);
+            color: #1a1a2e;
+            border: 1px solid rgba(0,0,0,0.2);
         }
 
         .btn-secondary:hover {
-            background: rgba(255,255,255,0.05);
-            border-color: rgba(255,255,255,0.4);
+            background: rgba(0,0,0,0.05);
+            border-color: rgba(0,0,0,0.4);
         }
 
         .quote {
             text-align: center;
             margin-top: 60px;
             padding-top: 40px;
-            border-top: 1px solid rgba(255,255,255,0.05);
+            border-top: 1px solid rgba(0,0,0,0.05);
         }
 
         .quote-text {
             font-size: 20px;
             font-style: italic;
-            color: rgba(255,255,255,0.4);
+            color: rgba(26,26,46,0.5);
             font-weight: 300;
         }
 
         .quote-text::before {
             content: '"';
             font-size: 40px;
-            color: #7c3aed;
+            color: #ff9d00;
             vertical-align: text-top;
             line-height: 0;
             margin-right: 5px;
@@ -491,7 +494,7 @@
         .quote-text::after {
             content: '"';
             font-size: 40px;
-            color: #06b6d4;
+            color: #ff6b6b;
             vertical-align: text-bottom;
             line-height: 0;
             margin-left: 5px;
