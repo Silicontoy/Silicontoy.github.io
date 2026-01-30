@@ -14,12 +14,12 @@
          
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: #0a0a0f;
+            background: #faf9f7;
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            color: #fff;
+            color: #1a1a2e;
             overflow-x: hidden;
         }
 
@@ -32,9 +32,9 @@
             height: 100%;
             z-index: 0;
             background: 
-                radial-gradient(ellipse at 20% 20%, rgba(120, 0, 255, 0.15) 0%, transparent 50%),
-                radial-gradient(ellipse at 80% 80%, rgba(0, 200, 255, 0.15) 0%, transparent 50%),
-                radial-gradient(ellipse at 50% 50%, rgba(255, 0, 128, 0.08) 0%, transparent 60%);
+                radial-gradient(ellipse at 20% 20%, rgba(255, 216, 102, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 80%, rgba(255, 159, 64, 0.12) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 50%, rgba(255, 107, 107, 0.08) 0%, transparent 60%);
         }
 
         .grid-overlay {
@@ -44,8 +44,8 @@
             width: 100%;
             height: 100%;
             background-image: 
-                linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+                linear-gradient(rgba(0,0,0,0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0,0,0,0.02) 1px, transparent 1px);
             background-size: 50px 50px;
             z-index: 1;
         }
@@ -65,7 +65,7 @@
             position: absolute;
             width: 4px;
             height: 4px;
-            background: rgba(255, 255, 255, 0.5);
+            background: rgba(255, 166, 0, 0.5);
             border-radius: 50%;
             animation: float 20s infinite;
         }
@@ -80,14 +80,15 @@
         .card {
             position: relative;
             z-index: 10;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(255, 255, 255, 0.7);
+            border: 1px solid rgba(0, 0, 0, 0.08);
             border-radius: 24px;
             padding: 50px 40px;
             text-align: center;
             backdrop-filter: blur(10px);
             max-width: 420px;
             width: 90%;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
         }
 
         .card::before {
@@ -97,7 +98,7 @@
             left: 0;
             right: 0;
             height: 3px;
-            background: linear-gradient(90deg, #7c3aed, #06b6d4, #f472b6);
+            background: linear-gradient(90deg, #ff9d00, #ffb347, #ff6b6b);
             border-radius: 24px 24px 0 0;
         }
 
@@ -116,7 +117,7 @@
             right: -8px;
             bottom: -8px;
             border-radius: 50%;
-            background: conic-gradient(from 0deg, #7c3aed, #06b6d4, #f472b6, #7c3aed);
+            background: conic-gradient(from 0deg, #ff9d00, #ffb347, #ff6b6b, #ff9d00);
             animation: rotate 4s linear infinite;
         }
 
@@ -130,19 +131,19 @@
             width: 130px;
             height: 130px;
             border-radius: 50%;
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            background: linear-gradient(135deg, #fff8f0 0%, #fff3e6 100%);
             display: flex;
             justify-content: center;
             align-items: center;
             font-size: 55px;
-            border: 4px solid #0a0a0f;
+            border: 4px solid #faf9f7;
             z-index: 1;
         }
 
         h1 {
             font-size: 28px;
             font-weight: 800;
-            background: linear-gradient(135deg, #fff 0%, #a78bfa 50%, #06b6d4 100%);
+            background: linear-gradient(135deg, #1a1a2e 0%, #ff9d00 50%, #ff6b6b 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -153,14 +154,14 @@
         .title {
             font-family: 'JetBrains Mono', monospace;
             font-size: 11px;
-            color: #06b6d4;
+            color: #ff9d00;
             letter-spacing: 2px;
             text-transform: uppercase;
             margin-bottom: 20px;
         }
         
         .bio {
-            color: rgba(255,255,255,0.6);
+            color: rgba(26,26,46,0.6);
             margin-bottom: 30px;
             line-height: 1.8;
             font-size: 15px;
@@ -168,7 +169,7 @@
         }
 
         .bio span {
-            color: #f472b6;
+            color: #ff6b6b;
             font-weight: 500;
         }
 
@@ -211,9 +212,9 @@
             justify-content: center;
             gap: 10px;
             padding: 14px 24px;
-            background: rgba(124, 58, 237, 0.1);
-            border: 1px solid rgba(124, 58, 237, 0.2);
-            color: #fff;
+            background: rgba(255, 157, 0, 0.1);
+            border: 1px solid rgba(255, 157, 0, 0.2);
+            color: #1a1a2e;
             text-decoration: none;
             border-radius: 12px;
             font-size: 14px;
@@ -230,7 +231,7 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
             transition: left 0.5s;
         }
 
@@ -240,48 +241,49 @@
         
         .links a:hover {
             transform: translateY(-3px);
-            background: rgba(124, 58, 237, 0.2);
-            border-color: rgba(124, 58, 237, 0.4);
-            box-shadow: 0 10px 30px rgba(124, 58, 237, 0.2);
+            background: rgba(255, 157, 0, 0.2);
+            border-color: rgba(255, 157, 0, 0.4);
+            box-shadow: 0 10px 30px rgba(255, 157, 0, 0.15);
         }
 
         /* 不同链接的颜色 */
         .links a.github {
-            background: rgba(255, 255, 255, 0.05);
-            border-color: rgba(255, 255, 255, 0.1);
+            background: rgba(0, 0, 0, 0.05);
+            border-color: rgba(0, 0, 0, 0.1);
         }
         .links a.github:hover {
-            background: rgba(255, 255, 255, 0.1);
-            border-color: rgba(255, 255, 255, 0.2);
+            background: rgba(0, 0, 0, 0.08);
+            border-color: rgba(0, 0, 0, 0.2);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
         }
 
         .links a.about {
-            background: linear-gradient(135deg, rgba(124, 58, 237, 0.2), rgba(6, 182, 212, 0.2));
-            border-color: rgba(124, 58, 237, 0.3);
+            background: linear-gradient(135deg, rgba(255, 157, 0, 0.15), rgba(255, 107, 107, 0.15));
+            border-color: rgba(255, 157, 0, 0.3);
         }
         .links a.about:hover {
-            background: linear-gradient(135deg, rgba(124, 58, 237, 0.3), rgba(6, 182, 212, 0.3));
-            box-shadow: 0 10px 30px rgba(124, 58, 237, 0.3);
+            background: linear-gradient(135deg, rgba(255, 157, 0, 0.25), rgba(255, 107, 107, 0.25));
+            box-shadow: 0 10px 30px rgba(255, 157, 0, 0.2);
         }
 
         .links a.blog {
-            background: rgba(6, 182, 212, 0.1);
-            border-color: rgba(6, 182, 212, 0.2);
+            background: rgba(255, 179, 71, 0.15);
+            border-color: rgba(255, 179, 71, 0.3);
         }
         .links a.blog:hover {
-            background: rgba(6, 182, 212, 0.2);
-            border-color: rgba(6, 182, 212, 0.4);
-            box-shadow: 0 10px 30px rgba(6, 182, 212, 0.2);
+            background: rgba(255, 179, 71, 0.25);
+            border-color: rgba(255, 179, 71, 0.5);
+            box-shadow: 0 10px 30px rgba(255, 179, 71, 0.2);
         }
 
         .links a.email {
-            background: rgba(244, 114, 182, 0.1);
-            border-color: rgba(244, 114, 182, 0.2);
+            background: rgba(255, 107, 107, 0.1);
+            border-color: rgba(255, 107, 107, 0.2);
         }
         .links a.email:hover {
-            background: rgba(244, 114, 182, 0.2);
-            border-color: rgba(244, 114, 182, 0.4);
-            box-shadow: 0 10px 30px rgba(244, 114, 182, 0.2);
+            background: rgba(255, 107, 107, 0.2);
+            border-color: rgba(255, 107, 107, 0.4);
+            box-shadow: 0 10px 30px rgba(255, 107, 107, 0.15);
         }
 
         .link-icon {
@@ -292,9 +294,9 @@
         .footer-text {
             margin-top: 30px;
             padding-top: 20px;
-            border-top: 1px solid rgba(255,255,255,0.05);
+            border-top: 1px solid rgba(0,0,0,0.05);
             font-size: 11px;
-            color: rgba(255,255,255,0.3);
+            color: rgba(26,26,46,0.4);
             font-family: 'JetBrains Mono', monospace;
         }
     </style>
