@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KAM — Knowledge Application Methodology</title>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #faf9f7; min-height: 100vh; color: #1a1a2e; overflow-x: hidden;
+        }
+        .bg-animation {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0;
+            background:
+                radial-gradient(ellipse at 15% 25%, rgba(99,102,241,0.12) 0%, transparent 50%),
+                radial-gradient(ellipse at 85% 75%, rgba(16,185,129,0.10) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 50%, rgba(245,158,11,0.08) 0%, transparent 60%);
+        }
+        .grid-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 1;
+            background-image: linear-gradient(rgba(0,0,0,0.018) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.018) 1px, transparent 1px);
+            background-size: 60px 60px;
+        }
+        .particles { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none; }
+        .particle { position: absolute; width: 3px; height: 3px; background: rgba(99,102,241,0.4); border-radius: 50%; animation: pfloat 22s infinite; }
+        .particle:nth-child(odd) { background: rgba(16,185,129,0.4); }
+        @keyframes pfloat {
+            0%,100% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; } 90% { opacity: 1; }
+            100% { transform: translateY(-10vh) rotate(720deg); opacity: 0; }
+        }
+        .container { position: relative; z-index: 10; max-width: 960px; margin: 0 auto; padding: 60px 20px; }
+
+        /* HEADER */
+        .header { text-align: center; margin-bottom: 55px; }
+        .logo-wrap { position: relative; width: 130px; height: 130px; margin: 0 auto 28px; }
+        .logo-ring {
+            position: absolute; top: -8px; left: -8px; right: -8px; bottom: -8px; border-radius: 28px;
+            background: conic-gradient(from 0deg, #6366f1, #10b981, #f59e0b, #6366f1);
+            animation: spin 6s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .logo {
+            position: relative; width: 130px; height: 130px; border-radius: 24px;
+            background: linear-gradient(135deg, #f8f7ff, #f0fdf4); display: flex;
+            justify-content: center; align-items: center; font-size: 52px;
+            border: 4px solid #faf9f7; z-index: 1;
+        }
+        .hname {
+            font-size: 48px; font-weight: 800; letter-spacing: -2px; margin-bottom: 10px;
+            background: linear-gradient(135deg, #1a1a2e 0%, #6366f1 50%, #10b981 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+        }
+        .hsub { font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #6366f1; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 18px; }
+        .htag { font-size: 18px; color: rgba(26,26,46,0.6); font-weight: 300; max-width: 620px; margin: 0 auto; line-height: 1.8; }
+        .htag b { font-weight: 600; }
+        .tp { color: #6366f1; } .tg { color: #10b981; }
+        .badge {
+            display: inline-flex; align-items: center; gap: 8px; margin-top: 22px; padding: 8px 20px;
+            background: rgba(99,102,241,0.08); border: 1px solid rgba(99,102,241,0.25);
+            border-radius: 30px; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #6366f1;
+        }
+        .bdot { width: 8px; height: 8px; background: #6366f1; border-radius: 50%; animation: pulse 2s infinite; }
+        @keyframes pulse {
+            0%,100% { opacity:1; box-shadow: 0 0 0 0 rgba(99,102,241,0.7); }
+            50% { opacity:0.8; box-shadow: 0 0 0 10px rgba(99,102,241,0); }
+        }
+
+        /* MANIFESTO */
+        .mani {
+            background: linear-gradient(135deg, rgba(99,102,241,0.07), rgba(16,185,129,0.07));
+            border: 1px solid rgba(99,102,241,0.2); border-radius: 24px; padding: 44px 40px;
+            margin-bottom: 50px; position: relative; overflow: hidden;
+        }
+        .mani::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background: linear-gradient(90deg, #6366f1, #10b981, #f59e0b); }
+        .mani-icon { font-size: 44px; margin-bottom: 20px; display: block; text-align: center; }
+        .mani-text { font-size: 17px; line-height: 2; color: rgba(26,26,46,0.85); }
+        .mani-text p { margin-bottom: 16px; }
+        .mani-text p:last-child { margin-bottom: 0; }
+        .hp { color: #6366f1; font-weight: 600; } .hg { color: #10b981; font-weight: 600; }
+        .ha { color: #d97706; font-weight: 600; } .hr { color: #dc2626; font-weight: 600; }
+        .em { font-style: italic; color: rgba(26,26,46,0.55); }
+        .fbox {
+            background: rgba(255,255,255,0.75); border: 1px solid rgba(99,102,241,0.2);
+            border-radius: 14px; padding: 20px 28px; margin: 20px 0; text-align: center;
+            font-family: 'JetBrains Mono', monospace; font-size: 15px; color: #1a1a2e;
+        }
+        .feq { color: #6366f1; font-weight: 700; }
+        .fp { color: #10b981; font-weight: 600; }
+        .fstate {
+            font-size: 19px; font-weight: 700; color: #1a1a2e; margin-top: 20px; padding-top: 20px;
+            border-top: 1px solid rgba(0,0,0,0.08); text-align: center; line-height: 1.8;
+        }
+        .fkw { background: linear-gradient(135deg, #6366f1, #10b981); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+
+        /* SECTION */
+        .sec-h { text-align: center; margin-bottom: 28px; }
+        .sec-t { font-size: 26px; font-weight: 800; color: #1a1a2e; margin-bottom: 8px; }
+        .sec-d { font-size: 14px; color: rgba(26,26,46,0.5); max-width: 520px; margin: 0 auto; }
+
+        /* CONCEPT GRID */
+        .cgrid { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; margin-bottom: 50px; }
+        .ccard {
+            background: rgba(255,255,255,0.75); border: 1px solid rgba(0,0,0,0.07); border-radius: 16px;
+            padding: 24px; text-align: center; backdrop-filter: blur(10px); transition: all 0.3s;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+        }
+        .ccard:hover { transform: translateY(-4px); box-shadow: 0 12px 24px rgba(99,102,241,0.1); border-color: rgba(99,102,241,0.2); }
+        .ci { font-size: 34px; margin-bottom: 12px; }
+        .ct { font-size: 15px; font-weight: 700; margin-bottom: 8px; }
+        .cd { font-size: 12px; color: rgba(26,26,46,0.55); line-height: 1.65; }
+
+        /* FORMS ROW */
+        .frow { display: flex; gap: 14px; margin-bottom: 50px; flex-wrap: wrap; }
+        .fcard {
+            flex: 1; min-width: 130px; background: rgba(255,255,255,0.75); border-radius: 14px;
+            padding: 20px; border: 1px solid rgba(0,0,0,0.07); transition: all 0.3s;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03); text-align: center;
+        }
+        .fcard:hover { transform: translateY(-3px); box-shadow: 0 12px 24px rgba(0,0,0,0.06); }
+        .fi { font-size: 26px; margin-bottom: 8px; }
+        .ft { font-size: 12px; font-weight: 700; margin-bottom: 4px; }
+        .fd { font-size: 11px; color: rgba(26,26,46,0.55); line-height: 1.5; }
+
+        /* PIPELINE FLOW */
+        .pflow { display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 28px; flex-wrap: wrap; }
+        .pnode { display: flex; align-items: center; gap: 6px; padding: 10px 18px; border-radius: 12px; font-size: 13px; font-weight: 600; white-space: nowrap; }
+        .pnode.l1 { background: rgba(239,68,68,0.1); color: #dc2626; border: 1px solid rgba(239,68,68,0.2); }
+        .pnode.l2 { background: rgba(245,158,11,0.1); color: #d97706; border: 1px solid rgba(245,158,11,0.2); }
+        .pnode.l3 { background: rgba(99,102,241,0.1); color: #6366f1; border: 1px solid rgba(99,102,241,0.2); }
+        .pnode.l4 { background: rgba(16,185,129,0.1); color: #059669; border: 1px solid rgba(16,185,129,0.2); }
+        .parr { font-size: 18px; color: rgba(26,26,46,0.25); }
+
+        /* LAYER CARDS */
+        .lcards { display: grid; grid-template-columns: repeat(2,1fr); gap: 20px; margin-bottom: 50px; }
+        .lcard {
+            background: rgba(255,255,255,0.75); border: 1px solid rgba(0,0,0,0.07); border-radius: 20px;
+            padding: 28px; backdrop-filter: blur(10px); transition: all 0.4s cubic-bezier(0.4,0,0.2,1);
+            position: relative; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+        }
+        .lcard::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; opacity:0; transition: opacity 0.4s; }
+        .lcard:hover { transform: translateY(-4px); box-shadow: 0 16px 32px rgba(0,0,0,0.08); }
+        .lcard:hover::before { opacity: 1; }
+        .lcard.l1::before { background: linear-gradient(90deg, #ef4444, #f97316); }
+        .lcard.l2::before { background: linear-gradient(90deg, #f59e0b, #eab308); }
+        .lcard.l3::before { background: linear-gradient(90deg, #6366f1, #8b5cf6); }
+        .lcard.l4::before { background: linear-gradient(90deg, #10b981, #06b6d4); }
+        .lcard:hover.l1 { border-color: rgba(239,68,68,0.25); }
+        .lcard:hover.l2 { border-color: rgba(245,158,11,0.25); }
+        .lcard:hover.l3 { border-color: rgba(99,102,241,0.25); }
+        .lcard:hover.l4 { border-color: rgba(16,185,129,0.25); }
+        .lnum {
+            display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px;
+            border-radius: 10px; font-family: 'JetBrains Mono', monospace; font-size: 14px; font-weight: 700; margin-bottom: 14px;
+        }
+        .lnum.l1 { background: rgba(239,68,68,0.12); color: #dc2626; }
+        .lnum.l2 { background: rgba(245,158,11,0.12); color: #d97706; }
+        .lnum.l3 { background: rgba(99,102,241,0.12); color: #6366f1; }
+        .lnum.l4 { background: rgba(16,185,129,0.12); color: #059669; }
+        .ltitle { font-size: 17px; font-weight: 700; margin-bottom: 4px; }
+        .lrole { font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 12px; opacity: 0.5; }
+        .ldesc { font-size: 13px; color: rgba(26,26,46,0.6); line-height: 1.75; margin-bottom: 14px; }
+        .lio { display: flex; flex-direction: column; gap: 6px; }
+        .iot {
+            display: inline-flex; align-items: center; gap: 6px; padding: 5px 12px; border-radius: 8px;
+            font-size: 11px; font-family: 'JetBrains Mono', monospace;
+        }
+        .iot.inp { background: rgba(99,102,241,0.08); color: #6366f1; }
+        .iot.out { background: rgba(16,185,129,0.08); color: #059669; }
+        .iot.pas { background: rgba(245,158,11,0.08); color: #d97706; }
+
+        /* TABLE */
+        .tcard {
+            background: rgba(255,255,255,0.75); border: 1px solid rgba(0,0,0,0.07); border-radius: 20px;
+            padding: 30px; box-shadow: 0 2px 8px rgba(0,0,0,0.03); margin-bottom: 20px;
+        }
+        .ttitle { font-size: 16px; font-weight: 700; margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
+        .tti { font-size: 22px; }
+        .twrap { overflow-x: auto; }
+        .twrap table { width: 100%; border-collapse: collapse; font-size: 13px; }
+        .twrap thead th {
+            text-align: left; padding: 12px 16px; font-weight: 700; font-size: 11px;
+            text-transform: uppercase; letter-spacing: 1px; color: rgba(26,26,46,0.5);
+            border-bottom: 2px solid rgba(0,0,0,0.06); white-space: nowrap;
+        }
+        .twrap tbody td { padding: 12px 16px; border-bottom: 1px solid rgba(0,0,0,0.04); color: rgba(26,26,46,0.75); line-height: 1.6; }
+        .twrap tbody tr:last-child td { border-bottom: none; }
+        .twrap tbody tr:hover { background: rgba(99,102,241,0.03); }
+        .mb {
+            display: inline-block; padding: 3px 10px; border-radius: 6px;
+            font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 600;
+        }
+        .mb.sc { background: rgba(239,68,68,0.1); color: #dc2626; }
+        .mb.mo { background: rgba(99,102,241,0.1); color: #6366f1; }
+        .mb.sk { background: rgba(245,158,11,0.1); color: #d97706; }
+        .mb.ag { background: rgba(16,185,129,0.1); color: #059669; }
+        .mb.tr { background: rgba(239,68,68,0.1); color: #dc2626; }
+        .mb.ft { background: rgba(245,158,11,0.1); color: #d97706; }
+        .mb.rg { background: rgba(99,102,241,0.1); color: #6366f1; }
+        .mb.cx { background: rgba(16,185,129,0.1); color: #059669; }
+        .lbar { display: inline-block; height: 6px; border-radius: 3px; vertical-align: middle; margin-right: 6px; }
+
+        /* FEEDBACK */
+        .fbcard {
+            background: linear-gradient(135deg, rgba(245,158,11,0.06), rgba(239,68,68,0.06));
+            border: 1px solid rgba(245,158,11,0.2); border-radius: 20px; padding: 30px;
+            position: relative; overflow: hidden; margin-bottom: 50px;
+        }
+        .fbcard::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background: linear-gradient(90deg, #f59e0b, #ef4444, #6366f1); }
+        .fbtitle { font-size: 18px; font-weight: 700; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+        .fbgrid { display: grid; grid-template-columns: repeat(2,1fr); gap: 14px; }
+        .fbi { background: rgba(255,255,255,0.7); border-radius: 14px; padding: 18px; border: 1px solid rgba(0,0,0,0.05); transition: all 0.3s; }
+        .fbi:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,0,0,0.06); }
+        .fbs { font-size: 13px; color: rgba(26,26,46,0.7); margin-bottom: 8px; line-height: 1.5; }
+        .fbt {
+            display: inline-block; padding: 3px 10px; border-radius: 6px;
+            font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 600; margin-bottom: 6px;
+        }
+        .fbt.l1 { background: rgba(239,68,68,0.1); color: #dc2626; }
+        .fbt.l2 { background: rgba(245,158,11,0.1); color: #d97706; }
+        .fbt.l3 { background: rgba(99,102,241,0.1); color: #6366f1; }
+        .fbt.ex { background: rgba(107,114,128,0.1); color: #6b7280; }
+        .fba { font-size: 12px; color: rgba(26,26,46,0.5); line-height: 1.5; }
+
+        /* EXAMPLE */
+        .excard {
+            background: rgba(255,255,255,0.75); border: 1px solid rgba(0,0,0,0.07); border-radius: 20px;
+            padding: 34px; box-shadow: 0 2px 8px rgba(0,0,0,0.03); margin-bottom: 50px;
+        }
+        .extitle { font-size: 18px; font-weight: 700; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+        .comp { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+        .cblk { padding: 20px; border-radius: 14px; border: 1px solid rgba(0,0,0,0.06); }
+        .cblk.ds { background: rgba(107,114,128,0.05); }
+        .cblk.ks { background: rgba(99,102,241,0.05); }
+        .clbl { font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 12px; font-weight: 700; }
+        .clbl.dl { color: #6b7280; } .clbl.kl { color: #6366f1; }
+        .clst { list-style: none; font-size: 13px; color: rgba(26,26,46,0.7); line-height: 1.9; }
+        .clst li { padding-left: 18px; position: relative; }
+        .clst li::before { content:'›'; position:absolute; left:0; color: rgba(26,26,46,0.3); font-weight: 700; }
+        .cblk.ks .clst li::before { color: #6366f1; }
+
+        /* STATS */
+        .stats {
+            display: flex; justify-content: center; gap: 40px; margin: 0 0 50px; padding: 30px;
+            background: rgba(255,255,255,0.6); border-radius: 20px; border: 1px solid rgba(0,0,0,0.05);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04); flex-wrap: wrap;
+        }
+        .stat { text-align: center; }
+        .sv {
+            font-size: 36px; font-weight: 800;
+            background: linear-gradient(135deg, #6366f1, #10b981);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+        }
+        .sl { font-size: 11px; color: rgba(26,26,46,0.5); text-transform: uppercase; letter-spacing: 2px; margin-top: 5px; }
+
+        /* BUTTONS */
+        .abtn { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; }
+        .btn {
+            display: inline-flex; align-items: center; gap: 10px; padding: 15px 30px;
+            border-radius: 12px; font-size: 15px; font-weight: 600; text-decoration: none;
+            transition: all 0.3s cubic-bezier(0.4,0,0.2,1); cursor: pointer;
+        }
+        .btn1 { background: linear-gradient(135deg, #6366f1, #10b981); color: #fff; border: none; }
+        .btn1:hover { transform: translateY(-3px); box-shadow: 0 20px 40px rgba(99,102,241,0.3); }
+        .btn2 { background: transparent; color: #1a1a2e; border: 1px solid rgba(0,0,0,0.2); }
+        .btn2:hover { background: rgba(0,0,0,0.05); border-color: rgba(0,0,0,0.4); }
+
+        /* QUOTE */
+        .quote { text-align: center; margin-top: 50px; padding-top: 40px; border-top: 1px solid rgba(0,0,0,0.05); }
+        .qt { font-size: 20px; font-style: italic; color: rgba(26,26,46,0.5); font-weight: 300; }
+        .qt::before { content:'"'; font-size: 40px; color: #6366f1; vertical-align: text-top; line-height: 0; margin-right: 5px; }
+        .qt::after { content:'"'; font-size: 40px; color: #10b981; vertical-align: text-bottom; line-height: 0; margin-left: 5px; }
+
+        @media (max-width: 650px) {
+            .hname { font-size: 34px; }
+            .mani { padding: 28px 18px; }
+            .mani-text { font-size: 15px; }
+            .cgrid { grid-template-columns: 1fr; }
+            .lcards { grid-template-columns: 1fr; }
+            .comp { grid-template-columns: 1fr; }
+            .fbgrid { grid-template-columns: 1fr; }
+            .pflow { gap: 5px; }
+            .pnode { padding: 7px 12px; font-size: 11px; }
+            .stats { gap: 24px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-animation"></div>
+    <div class="grid-overlay"></div>
+    <div class="particles">
+        <div class="particle" style="left:8%;animation-delay:0s;"></div>
+        <div class="particle" style="left:18%;animation-delay:2.5s;"></div>
+        <div class="particle" style="left:28%;animation-delay:4s;"></div>
+        <div class="particle" style="left:38%;animation-delay:1s;"></div>
+        <div class="particle" style="left:48%;animation-delay:3.5s;"></div>
+        <div class="particle" style="left:58%;animation-delay:5.5s;"></div>
+        <div class="particle" style="left:68%;animation-delay:2s;"></div>
+        <div class="particle" style="left:78%;animation-delay:1.5s;"></div>
+        <div class="particle" style="left:88%;animation-delay:4.5s;"></div>
+        <div class="particle" style="left:95%;animation-delay:3s;"></div>
+    </div>
+
+    <div class="container">
+
+        <!-- ===== HEADER ===== -->
+        <header class="header">
+            <div class="logo-wrap">
+                <div class="logo-ring"></div>
+                <div class="logo">📖</div>
+            </div>
+            <h1 class="hname">KAM</h1>
+            <p class="hsub">Knowledge Application Methodology</p>
+            <p class="htag">
+                A four-layer decoupled framework that transforms
+                <b class="tp">domain expertise</b> into
+                <b class="tg">AI-ready capabilities</b> —
+                conquering the final barrier of the most difficult automation tasks.
+            </p>
+            <div class="badge">
+                <span class="bdot"></span>
+                v1.0 · Methodology Specification
+            </div>
+        </header>
+
+        <!-- ===== MANIFESTO ===== -->
+        <div class="mani">
+            <span class="mani-icon">⚡</span>
+            <div class="mani-text">
+                <p>
+                    In complex, long-chain AI automation, the real bottleneck is never code — it's
+                    <span class="hp">knowledge</span>.
+                    Raw domain expertise is <span class="em">fragmented, implicit, and locked inside experts' heads</span>.
+                </p>
+                <p>
+                    KAM introduces <span class="hg">Knowledge Engineering</span> as the missing discipline:
+                    strip an expert's "intuition," clean it, and reconstruct it into
+                    <span class="ha">machine-consumable logical assets</span>.
+                </p>
+                <div class="fbox">
+                    Knowledge <span class="feq">=</span> Σ { <span class="fp">Specific Information</span> + <span class="fp">Data Flow</span> + <span class="fp">Control Flow</span> }
+                </div>
+                <p class="fstate">
+                    Decouple <span class="fkw">what experts know</span> from <span class="fkw">how engineers build</span>.<br>
+                    Make AI development reusable, replaceable, and independently evolving.
+                </p>
+            </div>
+        </div>
+
+        <!-- ===== CORE CONCEPTS ===== -->
+        <div class="sec-h">
+            <h2 class="sec-t">Core Concepts</h2>
+            <p class="sec-d">Three pillars that define the KAM framework</p>
+        </div>
+
+        <div class="cgrid">
+            <div class="ccard">
+                <div class="ci">🎯</div>
+                <div class="ct">KAM</div>
+                <div class="cd">A four-layer decoupled methodology for transforming domain expertise into AI-ready capabilities. Separates general practices from domain-specific components.</div>
+            </div>
+            <div class="ccard">
+                <div class="ci">📦</div>
+                <div class="ct">Knowledge</div>
+                <div class="cd">The sum of Specific Information + Data Flow + Control Flow. Decouples domain information from AI tool development. Can be internalized (training) or externalized (context/RAG).</div>
+            </div>
+            <div class="ccard">
+                <div class="ci">🔬</div>
+                <div class="ct">Knowledge Engineering</div>
+                <div class="cd">The entire process of converting raw, fragmented, implicit domain data into standardized, AI-consumable "knowledge blocks." Pseudocode written by domain experts.</div>
+            </div>
+        </div>
+
+        <!-- ===== KNOWLEDGE FORMS ===== -->
+        <div class="sec-h">
+            <h2 class="sec-t">Knowledge Forms &amp; Next Steps</h2>
+            <p class="sec-d">How knowledge enters and evolves within the AI system</p>
+        </div>
+
+        <div class="frow">
+            <div class="fcard">
+                <div class="fi">🧬</div>
+                <div class="ft">Internalized</div>
+                <div class="fd">Inserted into the model via training or fine-tuning. Deep effect, low flexibility.</div>
+            </div>
+            <div class="fcard">
+                <div class="fi">💉</div>
+                <div class="ft">Externalized</div>
+                <div class="fd">Dynamically injected via context prompts, RAG, or agent skills at runtime.</div>
+            </div>
+            <div class="fcard">
+                <div class="fi">📊</div>
+                <div class="ft">Datasets</div>
+                <div class="fd">Processed into training or fine-tuning datasets for model absorption.</div>
+            </div>
+            <div class="fcard">
+                <div class="fi">🔄</div>
+                <div class="ft">Flows</div>
+                <div class="fd">Structured as processes and logic chains for deterministic execution.</div>
+            </div>
+            <div class="fcard">
+                <div class="fi">🤖</div>
+                <div class="ft">Agents</div>
+                <div class="fd">Orchestrated into autonomous planning loops for open-ended tasks.</div>
+            </div>
+            <div class="fcard">
+                <div class="fi">🔧</div>
+                <div class="ft">Skills / MCPs</div>
+                <div class="fd">Packaged as capability modules connecting professional and general tools.</div>
+            </div>
+        </div>
+
+        <!-- ===== FOUR-LAYER PIPELINE ===== -->
+        <div class="sec-h">
+            <h2 class="sec-t">The Four-Layer Pipeline</h2>
+            <p class="sec-d">Decouple professional knowledge from engineering implementation</p>
+        </div>
+
+        <div class="pflow">
+            <div class="pnode l1">🧑‍🔬 L1 · Expert</div>
+            <span class="parr">→</span>
+            <div class="pnode l2">🔬 L2 · Knowledge Eng.</div>
+            <span class="parr">→</span>
+            <div class="pnode l3">🏗️ L3 · AI Architect</div>
+            <span class="parr">→</span>
+            <div class="pnode l4">💻 L4 · Developer</div>
+        </div>
+
+        <div class="lcards">
+            <!-- Layer 1 -->
+            <div class="lcard l1">
+                <div class="lnum l1">L1</div>
+                <div class="ltitle">Professional Knowledge Layer</div>
+                <div class="lrole">Domain Expert</div>
+                <div class="ldesc">
+                    Experts reorganize their knowledge for machine consumption based on real, cutting-edge workflows.
+                    They log work by the minute — detailing <strong>Time + Action + Purpose</strong>.
+                    No AI understanding required, but must provide initial data and label definitions.
+                </div>
+                <div class="lio">
+                    <span class="iot inp">← Own domain knowledge &amp; experience</span>
+                    <span class="iot out">→ Cases, samples, logs, label definitions</span>
+                    <span class="iot pas">✓ Data covers core scenarios, labels unambiguous</span>
+                </div>
+            </div>
+
+            <!-- Layer 2 -->
+            <div class="lcard l2">
+                <div class="lnum l2">L2</div>
+                <div class="ltitle">Knowledge Processing Layer</div>
+                <div class="lrole">Knowledge Engineer</div>
+                <div class="ldesc">
+                    Raw knowledge cannot automatically become usable knowledge. Build domain knowledge maps,
+                    uncover hidden premises, plan control flow &amp; data flow, annotate, clean,
+                    and split into standardized <strong>Knowledge Blocks</strong>.
+                </div>
+                <div class="lio">
+                    <span class="iot inp">← Initial data &amp; labels from L1</span>
+                    <span class="iot out">→ Knowledge Blocks + flow plans</span>
+                    <span class="iot pas">✓ Complete hierarchy, implicit knowledge explicit</span>
+                </div>
+            </div>
+
+            <!-- Layer 3 -->
+            <div class="lcard l3">
+                <div class="lnum l3">L3</div>
+                <div class="ltitle">AI Tool Planning Layer</div>
+                <div class="lrole">AI Architect</div>
+                <div class="ldesc">
+                    Assess feasibility &amp; cost of technical routes. Forecast performance ceilings.
+                    Design evaluation metrics, test sets, and rollback plans.
+                    Choose between custom training, commercial APIs, RAG architecture, and prompt ratios.
+                </div>
+                <div class="lio">
+                    <span class="iot inp">← Knowledge blocks &amp; flow plans from L2</span>
+                    <span class="iot out">→ Solution doc: routes, budget, risk plans</span>
+                    <span class="iot pas">✓ Immediately executable, clear eval &amp; fallback</span>
+                </div>
+            </div>
+
+            <!-- Layer 4 -->
+            <div class="lcard l4">
+                <div class="lnum l4">L4</div>
+                <div class="ltitle">Tool Development Layer</div>
+                <div class="lrole">Development Engineer</div>
+                <div class="ldesc">
+                    <strong>General dev (100% AI):</strong> interaction design, system architecture, deployment.
+                    <strong>Dedicated dev (100% domain):</strong> professional software APIs, proprietary formats,
+                    domain-specific workflow orchestration.
+                </div>
+                <div class="lio">
+                    <span class="iot inp">← Solution document from L3</span>
+                    <span class="iot out">→ Executable AI Tool in production</span>
+                    <span class="iot pas">✓ Meets functional &amp; performance metrics</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== CONTROL FLOW & DATA FLOW TABLES ===== -->
+        <div class="sec-h">
+            <h2 class="sec-t">Flow Planning</h2>
+            <p class="sec-d">How knowledge is dispatched and how it interacts with the model</p>
+        </div>
+
+        <div class="tcard">
+            <div class="ttitle"><span class="tti">🎛️</span> Control Flow — Runtime Dispatch</div>
+            <div class="twrap">
+                <table>
+                    <thead>
+                        <tr><th>Method</th><th>Description</th><th>Applicable Scenario</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="mb sc">Script</span></td>
+                            <td>Hardcoded fixed processes</td>
+                            <td>Highly deterministic, rarely changes</td>
+                        </tr>
+                        <tr>
+                            <td><span class="mb mo">Model</span></td>
+                            <td>Autonomous judgment by the model</td>
+                            <td>Flexible flows requiring comprehension</td>
+                        </tr>
+                        <tr>
+                            <td><span class="mb sk">Skill</span></td>
+                            <td>Pre-defined capability modules</td>
+                            <td>Clear capabilities requiring reliability</td>
+                        </tr>
+                        <tr>
+                            <td><span class="mb ag">Agent</span></td>
+                            <td>Autonomous planning and execution</td>
+                            <td>Open-ended tasks requiring autonomy</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="tcard" style="margin-bottom: 50px;">
+            <div class="ttitle"><span class="tti">📡</span> Data Flow — Model Interaction</div>
+            <div class="twrap">
+                <table>
+                    <thead>
+                        <tr><th>Method</th><th>Cost</th><th>Depth</th><th>Flexibility</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="mb tr">Full Training</span></td>
+                            <td><span class="lbar" style="width:80px;background:#ef4444;"></span> Highest</td>
+                            <td><span class="lbar" style="width:80px;background:#6366f1;"></span> Deepest</td>
+                            <td><span class="lbar" style="width:20px;background:#10b981;"></span> Lowest</td>
+                        </tr>
+                        <tr>
+                            <td><span class="mb ft">Fine-tuning</span></td>
+                            <td><span class="lbar" style="width:60px;background:#ef4444;"></span> High</td>
+                            <td><span class="lbar" style="width:60px;background:#6366f1;"></span> Deep</td>
+                            <td><span class="lbar" style="width:30px;background:#10b981;"></span> Low</td>
+                        </tr>
+                        <tr>
+                            <td><span class="mb rg">RAG</span></td>
+                            <td><span class="lbar" style="width:40px;background:#ef4444;"></span> Medium</td>
+                            <td><span class="lbar" style="width:40px;background:#6366f1;"></span> Medium</td>
+                            <td><span class="lbar" style="width:60px;background:#10b981;"></span> High</td>
+                        </tr>
+                        <tr>
+                            <td><span class="mb cx">Context</span></td>
+                            <td><span class="lbar" style="width:20px;background:#ef4444;"></span> Lowest</td>
+                            <td><span class="lbar" style="width:20px;background:#6366f1;"></span> Shallowest</td>
+                            <td><span class="lbar" style="width:80px;background:#10b981;"></span> Highest</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- ===== FEEDBACK MECHANISM ===== -->
+        <div class="sec-h">
+            <h2 class="sec-t">Feedback &amp; Traceback</h2>
+            <p class="sec-d">When issues arise, trace back to the responsible layer</p>
+        </div>
+
+        <div class="fbcard">
+            <div class="fbtitle">🔄 Layer-to-Layer Feedback Mechanism</div>
+            <div class="fbgrid">
+                <div class="fbi">
+                    <div class="fbs">Tool performance fails metrics</div>
+                    <div class="fbt l3">→ Trace to Layer 3</div>
+                    <div class="fba">Re-evaluate the architectural plan and technical routes.</div>
+                </div>
+                <div class="fbi">
+                    <div class="fbs">Plan cannot be designed</div>
+                    <div class="fbt l2">→ Trace to Layer 2</div>
+                    <div class="fba">Reprocess knowledge, adjust granularity, or improve annotations.</div>
+                </div>
+                <div class="fbi">
+                    <div class="fbs">Missing foundational concepts</div>
+                    <div class="fbt l1">→ Trace to Layer 1</div>
+                    <div class="fba">Request experts to supplement data or source textbook knowledge.</div>
+                </div>
+                <div class="fbi">
+                    <div class="fbs">All routes too costly / ineffective</div>
+                    <div class="fbt ex">→ External Dependency</div>
+                    <div class="fba">Wait for tool/model evolution or adjust the project's target scope.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== POETRY EXAMPLE ===== -->
+        <div class="sec-h">
+            <h2 class="sec-t">Data vs. Knowledge</h2>
+            <p class="sec-d">A poetry example to illustrate the difference</p>
+        </div>
+
+        <div class="excard">
+            <div class="extitle">📝 Appendix: Writing a Poem</div>
+            <div class="comp">
+                <div class="cblk ds">
+                    <div class="clbl dl">Raw Data</div>
+                    <ul class="clst">
+                        <li>A collection of poems</li>
+                        <li>Classic literature anthologies</li>
+                        <li>Dictionaries &amp; references</li>
+                        <li>Specific excerpts from classics</li>
+                        <li>Word-by-word annotations</li>
+                    </ul>
+                </div>
+                <div class="cblk ks">
+                    <div class="clbl kl">KAM Knowledge (Hidden Premises)</div>
+                    <ul class="clst">
+                        <li>What actually defines a poem (e.g., rhyming)</li>
+                        <li>How to judge if a poem is good (emotion, imagery)</li>
+                        <li>The exact step-by-step process of writing</li>
+                        <li>Boundary: not an essay, limerick, or paper</li>
+                        <li>Tool awareness: pen vs. computer</li>
+                        <li>Operational flow: boot → open editor → type → line breaks → Enter → translate</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== STATS ===== -->
+        <div class="stats">
+            <div class="stat">
+                <div class="sv">4</div>
+                <div class="sl">Layers</div>
+            </div>
+            <div class="stat">
+                <div class="sv">4</div>
+                <div class="sl">Roles</div>
+            </div>
+            <div class="stat">
+                <div class="sv">4×4</div>
+                <div class="sl">Flow Matrix</div>
+            </div>
+            <div class="stat">
+                <div class="sv">∞</div>
+                <div class="sl">Domains</div>
+            </div>
+        </div>
+
+        <!-- ===== BUTTONS ===== -->
+        <div class="abtn">
+            <a href="https://silicontoy.github.io/" class="btn btn1">← Back to Home</a>
+            <a href="https://github.com/silicontoy" class="btn btn2">GitHub Profile</a>
+        </div>
+
+        <!-- ===== QUOTE ===== -->
+        <div class="quote">
+            <p class="qt">Conquer the final barrier of the most difficult automation tasks</p>
+        </div>
+
+    </div>
+</body>
+</html>
